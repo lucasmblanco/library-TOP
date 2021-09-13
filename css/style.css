@@ -1,0 +1,39 @@
+h1 {
+    font-size: 50px;
+    text-align: center;
+    padding: 20px;
+}
+
+.addButtonZone {
+    text-align: center;
+    padding: 50px;
+
+}
+
+.informationField {
+    display: none;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 250px;
+    background-color: grey;
+    text-align: center;
+    padding: 5px;
+    position: absolute;
+}
+
+label {
+    display: inline-block;
+    padding: 2px 0 2px 0;
+}
+
+input {
+    display: inline-block;
+    margin: 10px 14px;
+}
+
+#storageData {
+    display: inline-block;
+    margin: 10px 14px;
+}
