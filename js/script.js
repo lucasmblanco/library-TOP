@@ -69,6 +69,7 @@ function getValue() {
 
 ///
 
+
 let library = []; 
 
 function Libro() {}
@@ -101,11 +102,11 @@ const readStatus = document.getElementById('readStatus');
 function newBook(){
 }
 
-function Book(title,author,pages,read) {
+function Book(title,author,pages) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = read; 
+   // this.read = read; 
 }
 
 
@@ -135,13 +136,13 @@ function showUserInput() {
     let titleValue = titleForm.value;
     let authorValue = authorForm.value;
     let pagesValue = pagesForm.value;
-    let readValue = readStatus.checked;
+   // let readValue = readStatus.checked;
 
-    
+    /*
     if(readValue === true) readValue = 'Read'
     else readValue = 'Unread';
-
-    const addBook = new Book(titleValue, authorValue, pagesValue, readValue)
+*/
+    const addBook = new Book(titleValue, authorValue, pagesValue)
     myLibrary.push(addBook);
 
 
@@ -165,20 +166,26 @@ function showUserInput() {
 
 
     myLibrary.forEach( (book,index,array) => {
-        if(index === array.length - 1) 
-        Object.values(book).forEach( categorie => {
-            if(categorie === 'read') {
-                let buttonReadStatus = document.createElement('input')
-                buttonReadStatus.setAttribute('type', 'checkbox');
-                newDiv.appendChild(buttonReadStatus);
-            }
-        let information = document.createElement('div');
-        information.setAttribute('class','book_information');
-       
-        information.textContent = categorie;
-        newDiv.appendChild(information);
+        if(index === array.length - 1) {
+            Object.values(book).forEach( categorie => {
+            let information = document.createElement('div');
+            information.setAttribute('class','book_information');
+            information.textContent = categorie;
+            newDiv.appendChild(information);
         }
+            
         )
+        let divForReadStatus = document.createElement('div');
+        divForReadStatus.setAttribute('class', 'divReadStatus');
+        divForReadStatus.textContent = 'Has been read?';
+        newDiv.appendChild(divForReadStatus);
+
+
+        let readStatus = document.createElement('input');
+        readStatus.setAttribute('type', 'checkbox');
+        readStatus.setAttribute('class', 'readConfirmation');
+        divForReadStatus.appendChild(readStatus);
+        }
     })
     body.appendChild(newDiv);
 
