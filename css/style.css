@@ -37,3 +37,7 @@ input {
     display: inline-block;
     margin: 10px 14px;
 }
+
+.book_information {
+    display: block;
+}
