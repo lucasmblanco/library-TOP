@@ -90,6 +90,9 @@ allNewBook.prototype = Object.create(Libro.prototype);
 
 /// 
 
+  
+
+
 let myLibrary = [];
 
 const titleForm = document.getElementById('title');
@@ -102,21 +105,18 @@ const readStatus = document.getElementById('readStatus');
 function newBook(){
 }
 
-function Book(title,author,pages) {
+function Book(title,author,pages,read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-   // this.read = read; 
+    this.read = read; 
 }
 
 
 Book.prototype = Object.create(newBook.prototype);
 
-/*
-newBook.prototype.addBookToLibrary = function() {
-  myLibrary.push(this.Book);
-}
-*/
+
+
 
 function addBookToLibrary(book) {
     myLibrary.push(book);
@@ -136,117 +136,87 @@ function showUserInput() {
     let titleValue = titleForm.value;
     let authorValue = authorForm.value;
     let pagesValue = pagesForm.value;
-   // let readValue = readStatus.checked;
+    let readValue = readStatus.checked;
 
-    /*
     if(readValue === true) readValue = 'Read'
     else readValue = 'Unread';
-*/
-    const addBook = new Book(titleValue, authorValue, pagesValue)
+
+    const addBook = new Book(titleValue, authorValue, pagesValue, readValue);
+
+    if(titleValue === '' || authorValue === '' || pagesValue === '') {
+        alert('Please complete the form');
+        return;
+    }
+
     myLibrary.push(addBook);
+
+
 
 
     const body = document.querySelector('body')
     const newDiv = document.createElement('div')
     newDiv.setAttribute('class', 'user_text')
     
-/*
-    myLibrary.forEach( book => {
-        Object.values(book).forEach( categorie => {
-        let information = document.createElement('span');
-        information.setAttribute('class','book_information');
-        information.textContent = categorie;
-        newDiv.appendChild(information);
-        }
-        )
-    })
-    body.appendChild(newDiv);
-
-*/
 
 
-    myLibrary.forEach( (book,index,array) => {
+    myLibrary.forEach((book,index,array) => {
+        newDiv.setAttribute('data-book-number', index);
         if(index === array.length - 1) {
             Object.values(book).forEach( categorie => {
+            
+
             let information = document.createElement('div');
             information.setAttribute('class','book_information');
             information.textContent = categorie;
             newDiv.appendChild(information);
+
+
+
+            if (categorie === 'Read' || categorie === 'Unread') {
+            
+                let readState = document.createElement('button');
+                readState.setAttribute('class', 'readConfirmation');
+                readState.textContent = readValue; 
+                newDiv.appendChild(readState);
+                information.replaceWith(readState);
+
+                readState.addEventListener('click', changeReadState) 
+
+                function changeReadState() {
+                    if(readState.textContent === 'Read') {
+                        readState.textContent = 'Unread';
+                        myLibrary[index].read = 'Unread';
+                    } else { readState.textContent = 'Read'; 
+                    myLibrary[index].read = 'Read';
+                }
+                }
+
+
+            }
         }
             
-        )
-        let divForReadStatus = document.createElement('div');
-        divForReadStatus.setAttribute('class', 'divReadStatus');
-        divForReadStatus.textContent = 'Has been read?';
-        newDiv.appendChild(divForReadStatus);
+)
+        
+        let deleteButton = document.createElement('button');
+        deleteButton.innerHTML = '<i class="material-icons">close</i>';
+        deleteButton.setAttribute('class' , 'deleteButton')
+        newDiv.appendChild(deleteButton);
 
+        deleteButton.addEventListener('click', deleteBook)
 
-        let readStatus = document.createElement('input');
-        readStatus.setAttribute('type', 'checkbox');
-        readStatus.setAttribute('class', 'readConfirmation');
-        divForReadStatus.appendChild(readStatus);
+        function deleteBook() {
+            myLibrary.splice(newDiv.dataset.bookNumber, 1);
+            if(newDiv.dataset.bookNumber === 0) myLibrary = [];
+            newDiv.remove();
+        }
+
         }
     })
     body.appendChild(newDiv);
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-
-
-
-
-    for (let i = 0; i < myLibrary.length; i++) {
-        for (const value of Object.entries(myLibrary[i])) {
-            console.log(value);
-          }
-    }
-
-*/
-
-
-/*
-    const body = document.querySelector('body')
-    const newDiv = document.createElement('div')
-    newDiv.setAttribute('class', 'user_text')
-    body.appendChild(newDiv);
-    newDiv.textContent = `TITLE: ${addBook.title}, AUTHOR: ${addBook.author}, PAGES: ${addBook.pages}, HAS BEEN READ?: ${addBook.read}`;
-    
-*/  
-    
-    
-    
-    /*yLibrary[0]
-     userValues = []; 
-    storageValues();
-    const body = document.querySelector('body')
-    const newDiv = document.createElement('div')
-    newDiv.setAttribute('class', 'user_text')
-    body.appendChild(newDiv);
-    newDiv.textContent = userValues;
-    */
 }
 
 
-/*
-function storageValues() {
-    for(let i = 0; i < userInput.length; i++) {
-        userValues.push(userInput[i].value);
-    }
-}
-*/
 
-function storageValues() {
-    Array.from(userInput).map( item => userValues.push(item.value));
-}
+
+
 

@@ -11,10 +11,17 @@
     <body>
         <h1>LIBRARY</h1>
         <div class='container'>
-        <input id='title' class='container_input' type='text'>
-        <input id='author' class='container_input' type='text'>
-        <input id='pages'class='container_input' type='number'>
-        <input id='container_submit_button' type='submit' >
+            <form id='myForm'>
+                <label for='title'>Tittle of the book</label>
+                    <input id='title' class='container_input' type='text' requiered>
+                <label for='author'>Author of the book</label>    
+                    <input id='author' class='container_input' type='text' required>
+                <label for='pages'>Number of pages</label>   
+                    <input id='pages'class='container_input' type='number' required>
+                <label for='readStatus'>It has been read?</label>    
+                    <input id='readStatus'class='container_input' type='checkbox' required>
+                <button id='container_submit_button' type='button'>Add book</button> 
+            </form>
         </div>
     </body>
 </html> 
