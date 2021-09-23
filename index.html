@@ -7,43 +7,45 @@
         <link href="css/reset.css" rel="stylesheet" type="text/css" media="all">
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet"> 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet"> 
     </head>
     <body>
+        <header id='main_top'>
+        <div id='title_container'>
         <h1>LIBRARY</h1>
+        </div>
+        <div>
+            <button id='button_addBook'><i class="material-icons">library_books</i></button>
+        </div>
+    </header>
         <div class='container'>
             <form id='myForm'>
-                <label for='title'>Tittle of the book</label>
-                    <input id='title' class='container_input' type='text' requiered>
-                <label for='author'>Author of the book</label>    
-                    <input id='author' class='container_input' type='text' required>
-                <label for='pages'>Number of pages</label>   
-                    <input id='pages'class='container_input' type='number' required>
-                <label for='readStatus'>It has been read?</label>    
-                    <input id='readStatus'class='container_input' type='checkbox' required>
-                <button id='container_submit_button' type='button'>Add book</button> 
+                <div class='container_categorie'>
+                <label for='title'>Tittle</label>
+                    <input id='title' class='container_input' type='text'>
+                </div>
+                <div class='container_categorie'>
+                <label for='author'>Author</label>    
+                    <input id='author' class='container_input' type='text'>
+                </div>
+                    <div class='container_categorie'>
+                <label for='pages'>Pages</label>   
+                    <input id='pages'class='container_input input_number' type='number' min="0">
+                    </div>
+                    <div class='container_categorie'>
+                <label for='readStatus'>It has been read?</label>
+                    <input id='readStatus'class='container_input status_input' type='checkbox'>
+                    </div>
+                <button class='container_buttons container_submit_button' type='button'><i class="material-icons">add</i></button> 
             </form>
+            <button class='container_buttons container_cancel_form' type='button'><i class="material-icons">close</i></button>
         </div>
+        <div id='container_library'></div>
     </body>
 </html> 
 
-<!--
-<h1>LIBRARY</h1>
-        <div class='addButtonZone'>
-        <button class='addButton'><i class="material-icons">add</i></button>
-        </div>
-        <div class='informationField'>
-            <button class='closeWindow'><i class="material-icons">close</i></button>
-                <form id='myForm'>
-                    <label for='title'>Tittle of the book</label>
-                    <input type="text" id='title' name='title' value='noTitle' required>
-                    <label for='author'>Author of the book</label>
-                    <input type="text" id='author' name='author' value='noAuthor' required>
-                    <label for='pages'>Number of pages</label>
-                    <input type="number" id='pages' name='pages' value='noPages' required>
-                    <label for='readStatus'>It has been read?</label>
-                    <input type='checkbox'id='readStatus' name='read' value='null'>
-                    <input type='submit' id='storageData'>
-                </form>
-            
-        </div>
--->

@@ -1,38 +1,132 @@
-h1 {
+#title_container {
     font-size: 50px;
-    text-align: center;
-    padding: 20px;
+    padding: 20px 10px 20px 10px;
+    font-family: 'Dela Gothic One', sans-serif;
+    color:#ff8f00;
+    align-self: flex-start;
+}
+
+.container_categorie {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+
+#main_top {
+    display: flex;
+    align-items: center;
+}
+
+#myForm {
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 
 
-.informationField {
+.container_buttons {
+    margin: 10px;
+    border: none;
+    background-color: white;
+}
+
+.container_submit_button {
+    background-color:  #0ddb6e;
+    border-radius: 5px;
+    color: white
+}
+.container_submit_button:hover {
+    background-color:  #47ff95;
+    box-shadow: 0px 0px 10px  #47ff95;
+
+}
+
+.container_cancel_form {
+    background-color: rgba(255,0,0,1);
+    border-radius: 5px;
+    color: white;
+    width: 100px;
+}
+
+.container_cancel_form:hover {
+    background-color:  #fe3939;
+    box-shadow: 0px 0px 10px #fe3939;
+}
+
+
+.container {
     display: none;
-    left: 0; 
-    right: 0; 
-    margin-left: auto; 
-    margin-right: auto; 
-    width: 250px;
-    background-color: grey;
+    font-family:  'Dela Gothic One', sans-serif;
+    color: white;
+    background-color: #432efa;
+}
+
+#button_addBook {
+    background-color: white;
+    color:#ff8f00;
+    border: none;
+    margin: 8px 0px 0px 0px;
+}
+
+#container_library {
+    border: 8px solid orange;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    height: 100vh;
+    flex-wrap: wrap;
+    background: white;
+    align-items:flex-start;
+    align-content:flex-start;
+}
+
+.user_text {
+    border-radius: 10px;
     text-align: center;
-    padding: 5px;
-    position: absolute;
-}
-
-label {
-    display: inline-block;
-    padding: 2px 0 2px 0;
-}
-
-input {
-    display: inline-block;
-    margin: 10px 14px;
-}
-
-#storageData {
-    display: inline-block;
-    margin: 10px 14px;
+    margin: 5px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 0;     /* do not grow   - initial value: 0 */
+    flex-shrink: 0;   /* do not shrink - initial value: 1 */
+    flex-basis: 250px;
+    background: #ff8f00;
+    color: white;
+    font-family: 'Dela Gothic One', sans-serif;
+    padding: 10px;
+    overflow: hidden;
+    word-wrap: break-word;
+    height: 400px;
 }
 
 .book_information {
-    display: block;
+    font-size: 25px;
+    padding: 25px;
+}
+
+
+.container_input {
+    border-radius: 5px;
+}
+
+label {
+    padding: 5px;
+}
+
+
+.input_number {
+    width: 50px;
+}
+
+.div_submit_button {
+    display: flex;
+    align-self: flex-end;
+}
+
+.deleteButton {
+    display: flex;
+    align-self: flex-end;
+    justify-self: flex-end;
+    margin-top: auto;
 }
