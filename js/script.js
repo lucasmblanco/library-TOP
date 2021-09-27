@@ -1,13 +1,3 @@
-let myLibraryStorage = [];
-
-window.onload = loadBooks();
-
-function loadBooks() {
-    myLibraryStorage = JSON.parse(localStorage.getItem('bookStorage') || '[]');
-}
-  
-
-
 let myLibrary = [];
 
 const titleForm = document.getElementById('title');
@@ -16,10 +6,6 @@ const pagesForm = document.getElementById('pages');
 const readStatus = document.getElementById('readStatus');
 
 
-
-function newBook(){
-}
-
 function Book(title,author,pages,read) {
     this.title = title;
     this.author = author;
@@ -27,13 +13,9 @@ function Book(title,author,pages,read) {
     this.read = read; 
 }
 
-
-Book.prototype = Object.create(newBook.prototype);
-
-
 function addBookToLibrary(book) {
     myLibrary.push(book);
-    localStorage.setItem('bookStorage', JSON.stringify(book));
+    
 }
 
 const userInput = document.querySelectorAll('.container_input'); 
@@ -49,29 +31,25 @@ function showUserInput() {
 
     let titleValue = titleForm.value;
     let authorValue = authorForm.value;
-    let pagesValue = pagesForm.value;
+    let pagesValue = Number(pagesForm.value);
     let readValue = readStatus.checked;
 
-    if(readValue === true) readValue = 'Read'
+    if(readValue === true) readValue = 'Read';
     else readValue = 'Unread';
 
-    const addBook = new Book(titleValue, authorValue, pagesValue, readValue);
-
-    if(titleValue === '' || authorValue === '' || pagesValue === '') {
+   if(titleValue === '' || authorValue === '' || pagesValue === '') {
         alert('Please complete the form');
-        return;
+        return
     }
 
+    const addBook = new Book(titleValue, authorValue, pagesValue, readValue);
     addBookToLibrary(addBook);
 
-
-   
- 
-
-
+    localStorage.setItem('books', JSON.stringify(myLibrary));
+    
     const libraryContainer = document.getElementById('container_library');
-    const newDiv = document.createElement('div')
-    newDiv.setAttribute('class', 'user_text')
+    const newDiv = document.createElement('div');
+    newDiv.setAttribute('class', 'user_text');
     
 
     myLibrary.forEach((book,index,array) => {
@@ -85,7 +63,9 @@ function showUserInput() {
             information.textContent = categorie;
             newDiv.appendChild(information);
 
-
+            if (typeof categorie === 'number') {
+                information.setAttribute('class', 'numberOfPages');
+            }
 
             if (categorie === 'Read' || categorie === 'Unread') {
             
@@ -93,9 +73,9 @@ function showUserInput() {
                 readState.setAttribute('class', 'readConfirmation');
                 readState.textContent = readValue; 
                 if(categorie === 'Read') {
-                    readState.innerHTML = '<i class="material-icons">visibility</i>'
+                    readState.innerHTML = '<i class="material-icons read_icon">visibility</i>'
              } else {
-                 readState.innerHTML = '<i class="material-icons">visibility_off</i>'
+                 readState.innerHTML = '<i class="material-icons unread_icon">visibility_off</i>'
             }
                 newDiv.appendChild(readState);
                 information.replaceWith(readState);
@@ -103,14 +83,18 @@ function showUserInput() {
                 readState.addEventListener('click', changeReadState) 
 
                 function changeReadState() {
-                    if(readState.innerHTML  === '<i class="material-icons">visibility</i>') {
+                    if(readState.innerHTML  === '<i class="material-icons read_icon">visibility</i>') {
                         //readState.textContent = 'Unread';
                         readState.innerHTML = '<i class="material-icons">visibility_off</i>'
                         myLibrary[index].read = 'Unread';
+                        readState.childNodes[0].classList.remove('read_icon');
+                        readState.childNodes[0].classList.add('unread_icon');
                     } else { 
-                    readState.innerHTML = '<i class="material-icons">visibility</i>'
+                    readState.innerHTML = '<i class="material-icons unread_icon">visibility</i>'
                     // readState.textContent = 'Read'; 
                     myLibrary[index].read = 'Read';
+                    readState.childNodes[0].classList.remove('unread_icon');
+                    readState.childNodes[0].classList.add('read_icon');
                 }
                 }
 
@@ -173,4 +157,97 @@ function formIsNoMore() {
 }
 
 
-let almacenadoLibros = JSON.parse(localStorage.getItem("bookStorage") || "[]");
+//////////////
+
+let Libros = [];
+
+
+window.onload = loadBooks();
+
+function loadBooks() {
+    Libros = JSON.parse(localStorage.getItem("books") || "[]");
+
+
+    const libraryContainer = document.getElementById('container_library');
+
+    let newDiv;
+
+    if(Libros.length === 0 ) return; 
+
+    
+    Libros.forEach((book,index,array) => {
+        newDiv = document.createElement('div');
+        newDiv.setAttribute('class', 'user_text');
+        newDiv.setAttribute('data-book-number', index);
+        if(index === array.length - 1) {
+            Object.values(book).forEach( categorie => {
+            let information = document.createElement('div');
+            information.setAttribute('class','book_information');
+            information.textContent = categorie;
+            newDiv.appendChild(information);
+
+            if (typeof categorie === 'number') {
+                information.setAttribute('class', 'numberOfPages');
+            }
+
+            if (categorie === 'Read' || categorie === 'Unread') {
+            
+                let readState = document.createElement('button');
+                readState.setAttribute('class', 'readConfirmation');
+                //readState.textContent = readValue; 
+                if(categorie === 'Read') {
+                    readState.innerHTML = '<i class="material-icons read_icon">visibility</i>'
+             } else {
+                 readState.innerHTML = '<i class="material-icons unread_icon">visibility_off</i>'
+            }
+                newDiv.appendChild(readState);
+                information.replaceWith(readState);
+
+                readState.addEventListener('click', changeReadState) 
+
+                function changeReadState() {
+                    if(readState.innerHTML  === '<i class="material-icons read_icon">visibility</i>') {
+                        //readState.textContent = 'Unread';
+                        readState.innerHTML = '<i class="material-icons">visibility_off</i>'
+                        Libros[index].read = 'Unread';
+                        readState.childNodes[0].classList.remove('read_icon');
+                        readState.childNodes[0].classList.add('unread_icon');
+                    } else { 
+                    readState.innerHTML = '<i class="material-icons unread_icon">visibility</i>'
+                    // readState.textContent = 'Read'; 
+                    Libros[index].read = 'Read';
+                    readState.childNodes[0].classList.remove('unread_icon');
+                    readState.childNodes[0].classList.add('read_icon');
+                }
+            }
+
+
+        }
+    }
+            
+)
+        
+        let deleteButton = document.createElement('button');
+        deleteButton.innerHTML = '<i class="material-icons">close</i>';
+        deleteButton.setAttribute('class' , 'deleteButton')
+        newDiv.appendChild(deleteButton);
+
+        deleteButton.addEventListener('click', deleteBook)
+
+        function deleteBook() {
+            Libros.splice(newDiv.dataset.bookNumber, 1);
+            if(newDiv.dataset.bookNumber === 0) Libros = [];
+            newDiv.remove();
+            localStorage.setItem('books', JSON.stringify(Libros));
+            if(Libros.length === 0 ) localStorage.clear();
+        }
+
+        }
+    })
+    libraryContainer.appendChild(newDiv);
+
+    titleForm.value = '';
+    authorForm.value = '';
+    pagesForm.value = '';
+    readStatus.checked = false;
+}

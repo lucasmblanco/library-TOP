@@ -129,4 +129,46 @@ label {
     align-self: flex-end;
     justify-self: flex-end;
     margin-top: auto;
+    background-color: rgba(255,0,0,1);
+    border-radius: 5px;
+    color: white;
+    border: none;
+
+}
+
+
+.deleteButton:hover {
+    background-color:  #fe3939;
+    box-shadow: 0px 0px 10px #fe3939;
+}
+
+.numberOfPages {
+    font-size: 25px;
+    padding: 25px;
+
+}
+
+.numberOfPages:after {
+    font-family: 'Material Icons';
+    content: "auto_stories";
+    padding: 5px;
+    color: #432efa;
+  }
+
+.readConfirmation {
+    color: white;
+    background: none;
+    border: none;
+}
+
+.readConfirmation .material-icons {
+    font-size: 50px;
+}
+
+.read_icon {
+    color: #24aa92  ;
+}
+
+.unread_icon {
+    color: #aa2446 ;
 }
