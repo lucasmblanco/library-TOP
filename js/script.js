@@ -15,7 +15,6 @@ function Book(title,author,pages,read) {
 
 function addBookToLibrary(book) {
     myLibrary.push(book);
-    
 }
 
 const userInput = document.querySelectorAll('.container_input'); 
@@ -28,6 +27,11 @@ let userValues = [];
 
 
 function showUserInput() {
+
+ function updateBookState() {
+    localStorage.setItem('books', JSON.stringify(myLibrary));
+    console.log('hola');
+}
 
     let titleValue = titleForm.value;
     let authorValue = authorForm.value;
@@ -45,7 +49,7 @@ function showUserInput() {
     const addBook = new Book(titleValue, authorValue, pagesValue, readValue);
     addBookToLibrary(addBook);
 
-    localStorage.setItem('books', JSON.stringify(myLibrary));
+    //localStorage.setItem('books', JSON.stringify(myLibrary));
     
     const libraryContainer = document.getElementById('container_library');
     const newDiv = document.createElement('div');
@@ -72,35 +76,42 @@ function showUserInput() {
                 let readState = document.createElement('button');
                 readState.setAttribute('class', 'readConfirmation');
                 readState.textContent = readValue; 
+                
                 if(categorie === 'Read') {
                     readState.innerHTML = '<i class="material-icons read_icon">visibility</i>'
              } else {
-                 readState.innerHTML = '<i class="material-icons unread_icon">visibility_off</i>'
+                    readState.innerHTML = '<i class="material-icons unread_icon">visibility_off</i>'
             }
                 newDiv.appendChild(readState);
                 information.replaceWith(readState);
 
                 readState.addEventListener('click', changeReadState) 
 
+
+
                 function changeReadState() {
+                    
                     if(readState.innerHTML  === '<i class="material-icons read_icon">visibility</i>') {
-                        //readState.textContent = 'Unread';
                         readState.innerHTML = '<i class="material-icons">visibility_off</i>'
                         myLibrary[index].read = 'Unread';
+ 
                         readState.childNodes[0].classList.remove('read_icon');
                         readState.childNodes[0].classList.add('unread_icon');
-                    } else { 
-                    readState.innerHTML = '<i class="material-icons unread_icon">visibility</i>'
-                    // readState.textContent = 'Read'; 
-                    myLibrary[index].read = 'Read';
-                    readState.childNodes[0].classList.remove('unread_icon');
-                    readState.childNodes[0].classList.add('read_icon');
-                }
-                }
+                } else { 
+                        readState.innerHTML = '<i class="material-icons unread_icon">visibility</i>'
+                        myLibrary[index].read = 'Read';
 
-
+                        readState.childNodes[0].classList.remove('unread_icon');
+                        readState.childNodes[0].classList.add('read_icon');
+                }
+                
+                updateBookState();
             }
+
+
         }
+    }
+        
             
 )
         
@@ -118,6 +129,7 @@ function showUserInput() {
         }
 
         }
+        
     })
     libraryContainer.appendChild(newDiv);
 
@@ -126,6 +138,7 @@ function showUserInput() {
     pagesForm.value = '';
     readStatus.checked = false;
 
+    localStorage.setItem('books', JSON.stringify(myLibrary));
 
 }
 
@@ -160,22 +173,26 @@ function formIsNoMore() {
 //////////////
 
 
-let Libros = [];
-
+//let Libros = [];
 
 window.onload = loadBooks();
 
 function loadBooks() {
-    Libros = JSON.parse(localStorage.getItem("books") || "[]");
+
+    function updateBookState() {
+        localStorage.setItem('books', JSON.stringify(myLibrary));
+        console.log('hola');
+    }
+    myLibrary = JSON.parse(localStorage.getItem("books") || "[]");
 
 
     const libraryContainer = document.getElementById('container_library');
     
 
-    if(Libros.length === 0 ) return; 
+    if(myLibrary.length === 0 ) return; 
 
     
-    Libros.forEach((book,index) => {
+    myLibrary.forEach((book,index) => {
         let newDiv = document.createElement('div');
         newDiv.setAttribute('class', 'user_text');
         newDiv.setAttribute('data-book-number', index);
@@ -206,18 +223,17 @@ function loadBooks() {
 
                 function changeReadState() {
                     if(readState.innerHTML  === '<i class="material-icons read_icon">visibility</i>') {
-                        //readState.textContent = 'Unread';
                         readState.innerHTML = '<i class="material-icons">visibility_off</i>'
-                        Libros[index].read = 'Unread';
+                        myLibrary[index].read = 'Unread';
                         readState.childNodes[0].classList.remove('read_icon');
                         readState.childNodes[0].classList.add('unread_icon');
                     } else { 
-                    readState.innerHTML = '<i class="material-icons unread_icon">visibility</i>'
-                    // readState.textContent = 'Read'; 
-                    Libros[index].read = 'Read';
-                    readState.childNodes[0].classList.remove('unread_icon');
-                    readState.childNodes[0].classList.add('read_icon');
+                        readState.innerHTML = '<i class="material-icons unread_icon">visibility</i>' 
+                        myLibrary[index].read = 'Read';
+                        readState.childNodes[0].classList.remove('unread_icon');
+                        readState.childNodes[0].classList.add('read_icon');
                 }
+                updateBookState();
             }
 
 
@@ -234,11 +250,11 @@ function loadBooks() {
         deleteButton.addEventListener('click', deleteBook)
 
         function deleteBook() {
-            Libros.splice(newDiv.dataset.bookNumber, 1);
-            if(newDiv.dataset.bookNumber === 0) Libros = [];
+            myLibrary.splice(newDiv.dataset.bookNumber, 1);
+            if(newDiv.dataset.bookNumber === 0) myLibrary = [];
             newDiv.remove();
-            localStorage.setItem('books', JSON.stringify(Libros));
-            if(Libros.length === 0 ) localStorage.clear();
+            localStorage.setItem('books', JSON.stringify(myLibrary));
+            if(myLibrary.length === 0 ) localStorage.clear();
         }
         
         
