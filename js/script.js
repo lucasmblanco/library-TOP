@@ -159,6 +159,7 @@ function formIsNoMore() {
 
 //////////////
 
+
 let Libros = [];
 
 
@@ -169,17 +170,15 @@ function loadBooks() {
 
 
     const libraryContainer = document.getElementById('container_library');
-
-    let newDiv;
+    
 
     if(Libros.length === 0 ) return; 
 
     
-    Libros.forEach((book,index,array) => {
-        newDiv = document.createElement('div');
+    Libros.forEach((book,index) => {
+        let newDiv = document.createElement('div');
         newDiv.setAttribute('class', 'user_text');
         newDiv.setAttribute('data-book-number', index);
-        if(index === array.length - 1) {
             Object.values(book).forEach( categorie => {
             let information = document.createElement('div');
             information.setAttribute('class','book_information');
@@ -241,10 +240,13 @@ function loadBooks() {
             localStorage.setItem('books', JSON.stringify(Libros));
             if(Libros.length === 0 ) localStorage.clear();
         }
+        
+        
 
-        }
+        
+        libraryContainer.appendChild(newDiv);
     })
-    libraryContainer.appendChild(newDiv);
+
 
     titleForm.value = '';
     authorForm.value = '';
