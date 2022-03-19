@@ -30,7 +30,6 @@ function showUserInput() {
 
  function updateBookState() {
     localStorage.setItem('books', JSON.stringify(myLibrary));
-    console.log('hola');
 }
 
     let titleValue = titleForm.value;
