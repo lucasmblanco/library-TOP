@@ -5,12 +5,22 @@ const authorForm = document.getElementById('author');
 const pagesForm = document.getElementById('pages');
 const readStatus = document.getElementById('readStatus');
 
-
+/*
 function Book(title,author,pages,read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read; 
+}
+*/ 
+
+class Book {
+    constructor(title,author,pages,read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
 }
 
 function addBookToLibrary(book) {
